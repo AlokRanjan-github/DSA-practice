@@ -1,2 +1,0 @@
-= new Animal();
-        // a.eats();

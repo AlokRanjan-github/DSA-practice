@@ -1,7 +1,8 @@
 public class Multilvl {
     public static void main(String[] args) {
-        BlackPeople b = new BlackPeople();
+        BlackPeople b = new BlackPeople(); // creating object the constructor gets automatically invoked
         // LivingThings -> Humans -> BlackPeople
+        System.out.println(b); // just to remove error local variable not used
     }
 }
 
