@@ -13,7 +13,8 @@ public class XpowerN {
         }
 
         //Even power
-        int result = OptimizedPower(x, n/2) * OptimizedPower(x, n/2);
+        int subResult = OptimizedPower(x, n/2);
+        int result = subResult * subResult;
         
         //Odd
         if((n & 1) != 0){
@@ -23,7 +24,7 @@ public class XpowerN {
     }
 
     public static void main(String[] args) {
-        System.out.println(power(2, 10));
+        // System.out.println(power(2, 10));
         System.out.println(OptimizedPower(2, 9));
     }
 }
