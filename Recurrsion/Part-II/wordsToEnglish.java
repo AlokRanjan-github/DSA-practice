@@ -6,7 +6,7 @@ public class wordsToEnglish {
         }
         int lastDigit = n%10;
         toEnglish(n/10);
-        System.out.println(words[lastDigit]);
+        System.out.print(words[lastDigit]+" ");
     }
     public static void main(String[] args) {
         int num = 2019;
