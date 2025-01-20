@@ -84,17 +84,64 @@ public class removeLL {
         size--;
 
     }
+    // Palindrome Linked List checking
+    
+    public Node findMidNode(Node head){
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public boolean isPalindrome(){
+
+        if (head ==null || head.next==null) {
+            return true;
+        }
+        Node midNode = findMidNode(head);
+
+        Node prev = null;
+        Node current = midNode;
+        Node next;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        Node rightHead = prev;
+        Node leftHead = head;
+
+
+
+        while (rightHead != null) {
+            if (leftHead.data != rightHead.data) {
+                return false;
+            }
+            leftHead = leftHead.next;
+            rightHead = rightHead.next;
+        }
+        return true;
+    }
+
 
     public static void main(String[] args){
         removeLL LL = new removeLL();
         LL.addFirst(10);
         LL.addLast(20);
         LL.addLast(30);
-        LL.addLast(40);
-        LL.addLast(50);
+        LL.addLast(20);
+        LL.addLast(10);
         LL.print();
-        LL.nthFromLast(4);
-        LL.print();
+        // LL.nthFromLast(4);
+        // LL.print();
+        System.out.println(LL.isPalindrome());
+
+
     }
 
 }
