@@ -1,8 +1,5 @@
 public class removeLL {
-    private Node head;
-    private Node tail;
-    public static int size;
-
+    
     public removeLL(){
         this.head = null;
         this.tail = null;
@@ -11,12 +8,17 @@ public class removeLL {
     public class Node{
         int data;
         Node next;
-
+        
         public Node( int data){
             this.data= data;
             this.next=null;
         }
+
     }
+    public Node head;
+    public Node tail;
+    
+    public static int size;
 
     public void addFirst(int data){
         Node newNode = new Node(data);
@@ -53,6 +55,13 @@ public class removeLL {
         newNode.next = currNode.next;
         currNode.next = newNode;
         size++;
+    }
+
+    public void toFormCycle(int data){
+        Node newNode = new Node(data);
+        tail.next = newNode;
+        newNode.next = head.next.next;
+        return;
     }
     public void print(){
         Node temp = head;
@@ -128,20 +137,89 @@ public class removeLL {
         return true;
     }
 
+    public boolean isCycle(){
+        Node slow = head;
+        Node fast = head;
+
+        while (fast !=null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // Time complexity O(n^2)
+
+    // public void toRemoveCycle(){
+    //     Node slow = head;
+    //     Node fast = head;
+    //     Node prev;
+
+    //     while (fast !=null && fast.next != null) {
+    //         slow = slow.next;
+    //         fast = fast.next.next;
+    //         if (slow == fast) {
+    //             slow = head;
+    //             while (slow != fast) {
+    //                 slow = slow.next;
+    //                 prev = fast;
+    //                 fast = fast.next;
+    //                 if (slow == fast) {
+    //                     prev.next = null;
+    //                     return;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // Time complexity O(n^2)
+    public void toRemoveCycle2(){
+        Node slow = head;
+        Node fast = head;
+        boolean cycle = false;
+
+        while (fast !=null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) {
+                cycle = true;
+                break;
+            }
+        }
+        if (cycle == false) {
+            return;
+        }
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        prev.next = null;
+    }
+
 
     public static void main(String[] args){
         removeLL LL = new removeLL();
         LL.addFirst(10);
         LL.addLast(20);
         LL.addLast(30);
-        LL.addLast(20);
-        LL.addLast(10);
-        LL.print();
+        LL.addLast(40);
+        LL.addLast(50);
+        // LL.toFormCycle(60);
+        // LL.print();
         // LL.nthFromLast(4);
         // LL.print();
-        System.out.println(LL.isPalindrome());
-
-
+        // System.out.println(LL.isPalindrome());
+        System.out.println(LL.isCycle());
+        // LL.toRemoveCycle();
+        LL.toRemoveCycle2();
+        LL.print();
     }
 
 }
