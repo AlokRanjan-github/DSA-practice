@@ -89,7 +89,7 @@ public class JCFlinkedlist {
         return slow;
     }
 
-    public Node merge(Node head1, Node head2){
+    public Node merge(Node head1, Node head2) {
         Node mergedLL = new Node(-1);
         Node temp = mergedLL;
         while (head1 != null && head2 != null) {
@@ -97,8 +97,7 @@ public class JCFlinkedlist {
                 temp.next = head1;
                 head1 = head1.next;
                 temp = temp.next;
-            }
-            else{
+            } else {
                 temp.next = head2;
                 head2 = head2.next;
                 temp = temp.next;
@@ -135,16 +134,64 @@ public class JCFlinkedlist {
         return merge(leftHalf, rightHalf);
     }
 
+    // ZigZag Linked list
+
+    public Node findMid(Node head){
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node slow = head;
+        Node fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    public Node zigZag(Node head){
+        Node mid = findMid(head);
+
+        Node curr = mid.next;
+        mid.next = null;
+
+        Node prev = null;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node rightHead = prev;
+        Node leftHead = head;
+        
+        Node NextLeft;
+        Node NextRight;
+
+        while (leftHead != null && rightHead != null ) {
+            NextLeft = leftHead.next;
+            NextRight = rightHead.next;
+            leftHead.next = rightHead;
+            rightHead.next = NextLeft;
+
+            leftHead = NextLeft;
+            rightHead = NextRight;
+        }
+        return head;
+
+    }
+
     public static void main(String[] args) {
         JCFlinkedlist LL = new JCFlinkedlist();
-        LL.addFirst(10);
-        LL.addFirst(20);
-        LL.addFirst(30);
-        LL.addFirst(40);
+        LL.addLast(10);
+        LL.addLast(20);
+        LL.addLast(30);
+        LL.addLast(40);
+        LL.addLast(50);
         LL.printLL();
+        LL.zigZag(LL.head);
+        // LL.head = LL.mergeSort(LL.head);
 
-        LL.head = LL.mergeSort(LL.head);
-        
         LL.printLL();
     }
 }
