@@ -16,6 +16,7 @@ public class decoding {
                     num = num * 10 + (str.charAt(index) - '0'); // Coverts into integer
                     index++;
                 }
+                index--;
                 countStack.push(num);
 
             } else if (ch == '[') {
