@@ -1,0 +1,11 @@
+();
+        cq.add(20);
+        cq.add(30);
+        cq.add(40);
+        cq.add(50);
+        cq.add(60);
+        cq.add(70);
+        cq.remove();
+        cq.peek();
+        cq.add(80);
+        cq.add(90);
