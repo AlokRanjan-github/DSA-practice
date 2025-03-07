@@ -40,7 +40,7 @@ public class DiameterOfTree {
 
         return Math.max(leftHeigth, rightHeigth) + 1;
     }
-
+    //Approach 1
     public static int diameter(Node root) {
         if (root == null) {
             return 0;
@@ -54,33 +54,27 @@ public class DiameterOfTree {
         return Math.max(diameterThruRoot, Math.max(rightDiameter, leftDiameter));
     }
 
-    public static void levelOrder(Node root) {
-        if (root == null) {
-            return;
-        }
-        Queue<Node> q = new LinkedList<>();
-        q.add(root);
-        q.add(null);
+    //Approach 2
+    public static class Info{
+        int diameter;
+        int height;
 
-        while (!q.isEmpty()) {
-            Node currNode = q.remove();
-            if (currNode == null) {
-                System.out.println();
-                if (q.isEmpty()) {
-                    break;
-                } else {
-                    q.add(null);
-                }
-            } else {
-                System.out.print(currNode.data + " ");
-                if (currNode.left != null) {
-                    q.add(currNode.left);
-                }
-                if (currNode.right != null) {
-                    q.add(currNode.right);
-                }
-            }
+        Info(int dia, int ht){
+            this.diameter = dia;
+            this.height = ht;
         }
+    }
+    public static Info diameter(Node root){
+        if (root == null) {
+            return new Info(0, 0);
+        }
+        Info leftInfo = diameter(root.left);
+        Info rightInfo = diameter(root.right);
+
+        int dia = Math.max(Math.max(leftInfo.diameter, rightInfo.diameter), leftInfo.height+rightInfo.height+1);
+        int ht = Math.max(leftInfo.height, rightInfo.height)+1;
+
+        return new Info(dia, ht);
     }
 
     public static void main(String[] args) {
@@ -90,8 +84,9 @@ public class DiameterOfTree {
 
         System.out.println("Height of tree: " + height(root));
 
-        System.out.println("Diameter of tree: " + diameter(root));
-        levelOrder(root);
+        Info diameterInfo = diameter(root);
+
+        System.out.println("Diameter of tree: " + diameterInfo.diameter);
     }
 
 }
