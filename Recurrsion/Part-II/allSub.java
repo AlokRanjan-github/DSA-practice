@@ -17,7 +17,8 @@ public class allSub {
         length(str, i+1);
     }
     public static void main(String[] args) {
-        length("abcab", 0);
+        // length("abcab", 0);
+        length("abcabcbb", 0);
         System.out.println(count);
     }
 }

@@ -125,8 +125,6 @@ public class removeLL {
         Node rightHead = prev;
         Node leftHead = head;
 
-
-
         while (rightHead != null) {
             if (leftHead.data != rightHead.data) {
                 return false;
