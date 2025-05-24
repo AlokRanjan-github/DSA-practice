@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class deleteBST {
     public class Node {
         int data;
@@ -82,9 +84,30 @@ public class deleteBST {
         }
     }
 
+    public void printPath(ArrayList<Integer> path) {
+        for (int i = 0; i < path.size(); i++) {
+            System.out.print(path.get(i) + "->");
+        }
+        System.out.println("null");
+    }
+
+    public void root2Leaf(Node root, ArrayList<Integer> path) {
+        if (root == null) {
+            return;
+        }
+        path.add(root.data); // add the node
+        if (root.left == null && root.right == null) { // check if its leaf node (if yes) print the path
+            printPath(path);
+        }
+        root2Leaf(root.left, path); // traverse for possible path on left subtree
+        root2Leaf(root.right, path); // traverse for possible path on right subtree
+        path.remove(path.size() - 1); // backtracking step
+    }
+
     public static void main(String[] args) {
         deleteBST bst = new deleteBST();
-        int[] nodes = { 1, 3, 5, 8, 6, 10, 11, 14 };
+        // int[] nodes = { 1, 3, 5, 8, 6, 10, 11, 14 };
+        int[] nodes = { 8, 5, 10, 3, 6, 11, 14 };
         Node root = null;
         for (int i = 0; i < nodes.length; i++) {
             root = bst.insertBST(root, nodes[i]);
@@ -96,7 +119,9 @@ public class deleteBST {
         // System.out.println("\nInorder after deletion");
         // bst.Inorder(root);
 
-        System.out.println("Printing in range");
-        bst.printInRange(root, 3, 11);
+        // System.out.println("Printing in range");
+        // bst.printInRange(root, 3, 11);
+        ArrayList<Integer> path = new ArrayList<>();
+        bst.root2Leaf(root, path);
     }
 }
