@@ -1,5 +1,6 @@
 public class StringCompression {
     public static void Compress(String str){
+        @SuppressWarnings("StringBufferMayBeStringBuilder")
         StringBuffer newString = new StringBuffer("");
 
         for (int i = 0; i < str.length(); i++) {
